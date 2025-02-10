@@ -13,7 +13,8 @@ class AuthController extends Controller {
       if (
         !Auth::attempt([
           'email' => GenController::filter($req->email, 'l'),
-          'password' => trim($req->password)
+          'password' => trim($req->password),
+          'active' => true
         ])
       ) {
         return $this->apiRsp(422, 'Datos de acceso inválidos', null);
