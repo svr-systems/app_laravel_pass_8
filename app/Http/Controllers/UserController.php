@@ -93,7 +93,7 @@ class UserController extends Controller {
   public function storeUpdate($req, $id) {
     DB::beginTransaction();
     try {
-      $valid = User::validEmail(["email" => GenController::filter($req->email, 'l')], $id);
+      $valid = User::validEmail(['email' => GenController::filter($req->email, 'l')], $id);
       if ($valid->fails()) {
         return $this->apiRsp(422, $valid->errors()->first());
       }

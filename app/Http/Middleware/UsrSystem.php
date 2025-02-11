@@ -16,6 +16,6 @@ class UsrSystem {
       return $next($req);
     }
 
-    return (new Controller)->apiRsp(401, "No tiene permisos para acceder a este recurso");
+    return (new Controller)->apiRsp(401, 'No tiene permisos para acceder a este recurso');
   }
 }
