@@ -13,11 +13,18 @@ class AuthController extends Controller {
       if (
         !Auth::attempt([
           'email' => GenController::filter($req->email, 'l'),
-          'password' => trim($req->password),
-          'active' => true
+          'password' => trim($req->password)
         ])
       ) {
         return $this->apiRsp(422, 'Datos de acceso inválidos', null);
+      }
+
+      if (!boolval(Auth::user()->active)) {
+        return $this->apiRsp(422, 'Cuenta inactiva', null);
+      }
+
+      if (is_null(Auth::user()->email_verified_at)) {
+        return $this->apiRsp(422, 'E-mail pendiente de verificación, revisa tu bandeja de entrada', null);
       }
 
       return $this->apiRsp(
